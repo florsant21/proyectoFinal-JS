@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "nombre": "Samsung A04",
+        "precio": 200000,
+        "imagen": "./assets/Samsung-A04.avif"
+    },
+    {
+        "id": 2,
+        "nombre": "Samsung A14",
+        "precio": 280000,
+        "imagen": "./assets/Samsung-A14.avif"
+    }
+    {
+        "id": 3,
+        "nombre": "Samsung A24",
+        "precio": 325000,
+        "imagen": "./assets/Samsung-A24.avif"
+    },
+    {
+        "id": 4,
+        "nombre": "Samsung A14 5G",
+        "precio": 380000,
+        "imagen": "./assets/Samsung-A145G.avif"
+    }
+]
