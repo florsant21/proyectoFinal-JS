@@ -10,7 +10,7 @@
         "nombre": "Samsung A14",
         "precio": 280000,
         "imagen": "./assets/Samsung-A14.avif"
-    }
+    },
     {
         "id": 3,
         "nombre": "Samsung A24",
