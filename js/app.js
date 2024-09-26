@@ -119,7 +119,13 @@ document.getElementById("vaciar-carrito").addEventListener("click", () => {
 });
 
 document.getElementById("comprar").addEventListener("click", () => {
-  alert("Gracias por su compra!");
+  Swal.fire({
+    title: 'Compra realizada',
+    text: '¡Gracias por su compra!',
+    icon: 'success',
+    confirmButtonText: 'Aceptar'
+  });
   carrito = [];
   actualizarCarrito();
 });
+
