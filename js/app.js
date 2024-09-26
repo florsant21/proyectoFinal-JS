@@ -11,7 +11,7 @@ fetch("../productos.json")
   })
   .catch((error) => console.error("Error al cargar productos:", error));
 
-actualizarCarrito();
+cargarCarritoDesdeLocalStorage();
 
 function mostrarProductos(productos) {
   const seccionProductos = document.getElementById("productos");
@@ -81,6 +81,8 @@ function actualizarCarrito() {
     });
   }
 
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+
   calcularTotal();
   actualizarEstadoBotones();
 }
@@ -100,6 +102,14 @@ function actualizarEstadoBotones() {
   } else {
     botonVaciar.disabled = true;
     botonComprar.disabled = true;
+  }
+}
+
+function cargarCarritoDesdeLocalStorage() {
+  const carritoGuardado = localStorage.getItem("carrito");
+  if (carritoGuardado) {
+    carrito = JSON.parse(carritoGuardado);
+    actualizarCarrito();
   }
 }
 
