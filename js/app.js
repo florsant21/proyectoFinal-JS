@@ -1,77 +1,115 @@
 let carrito = [];
 let total = 0;
 
-fetch('../productos.json')
-    .then(response => response.json())
-    .then(data => {
-        mostrarProductos(data);
-    })
-    .catch(error => console.error('Error al cargar productos:', error));
+document.getElementById("vaciar-carrito").disabled = true;
+document.getElementById("comprar").disabled = true;
+
+fetch("../productos.json")
+  .then((response) => response.json())
+  .then((data) => {
+    mostrarProductos(data);
+  })
+  .catch((error) => console.error("Error al cargar productos:", error));
+
+actualizarCarrito();
 
 function mostrarProductos(productos) {
-    const seccionProductos = document.getElementById('productos');
-    productos.forEach(producto => {
-        const divProducto = document.createElement('div');
-        divProducto.classList.add('producto');
+  const seccionProductos = document.getElementById("productos");
+  seccionProductos.classList.add("row");
 
-        const imgProducto = document.createElement('img');
-        imgProducto.src = producto.imagen;
-        imgProducto.alt = producto.nombre;
-        divProducto.appendChild(imgProducto);
+  productos.forEach((producto) => {
+    const divProducto = document.createElement("div");
+    divProducto.classList.add("col-lg-3", "col-6", "mb-4");
 
-        const h3Producto = document.createElement('h3');
-        h3Producto.textContent = producto.nombre;
-        divProducto.appendChild(h3Producto);
+    const card = document.createElement("div");
+    card.classList.add("card", "h-100");
 
-        const pPrecio = document.createElement('p');
-        pPrecio.textContent = `$${producto.precio}`;
-        divProducto.appendChild(pPrecio);
+    const imgProducto = document.createElement("img");
+    imgProducto.src = producto.imagen;
+    imgProducto.alt = producto.nombre;
+    imgProducto.classList.add("card-img-top");
+    card.appendChild(imgProducto);
 
-        const botonAgregar = document.createElement('button');
-        botonAgregar.textContent = 'Agregar al Carrito';
-        botonAgregar.addEventListener('click', () => agregarAlCarrito(producto.id));
-        divProducto.appendChild(botonAgregar);
+    const cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center");
 
-        seccionProductos.appendChild(divProducto);
-    });
+    const h3Producto = document.createElement("h5");
+    h3Producto.textContent = producto.nombre;
+    h3Producto.classList.add("card-title");
+    cardBody.appendChild(h3Producto);
+
+    const pPrecio = document.createElement("p");
+    pPrecio.textContent = `$${producto.precio}`;
+    pPrecio.classList.add("card-text");
+    cardBody.appendChild(pPrecio);
+
+    const botonAgregar = document.createElement("button");
+    botonAgregar.textContent = "Agregar al Carrito";
+    botonAgregar.classList.add("btn", "mt-2");
+    botonAgregar.addEventListener("click", () => agregarAlCarrito(producto.id));
+    cardBody.appendChild(botonAgregar);
+
+    card.appendChild(cardBody);
+    divProducto.appendChild(card);
+    seccionProductos.appendChild(divProducto);
+  });
 }
 
 function agregarAlCarrito(idProducto) {
-    fetch('../productos.json')
-        .then(response => response.json())
-        .then(productos => {
-            const producto = productos.find(p => p.id === idProducto);
-            carrito.push(producto);
-            actualizarCarrito();
-        });
+  fetch("../productos.json")
+    .then((response) => response.json())
+    .then((productos) => {
+      const producto = productos.find((p) => p.id === idProducto);
+      carrito.push(producto);
+      actualizarCarrito();
+    });
 }
 
 function actualizarCarrito() {
-    const listaCarrito = document.getElementById('lista-carrito');
-    listaCarrito.innerHTML = '';
+  const listaCarrito = document.getElementById("lista-carrito");
+  listaCarrito.innerHTML = "";
 
-    carrito.forEach(producto => {
-        const liProducto = document.createElement('li');
-        liProducto.textContent = `${producto.nombre} - $${producto.precio}`;
-
-        listaCarrito.appendChild(liProducto);
+  if (carrito.length === 0) {
+    const mensajeVacio = document.createElement("p");
+    mensajeVacio.textContent = "No hay productos en el carrito";
+    listaCarrito.appendChild(mensajeVacio);
+  } else {
+    carrito.forEach((producto) => {
+      const liProducto = document.createElement("li");
+      liProducto.textContent = `${producto.nombre} - $${producto.precio}`;
+      listaCarrito.appendChild(liProducto);
     });
+  }
 
-    calcularTotal();
+  calcularTotal();
+  actualizarEstadoBotones();
 }
 
 function calcularTotal() {
-    total = carrito.reduce((acc, prod) => acc + prod.precio, 0);
-    document.getElementById('total').textContent = total;
+  total = carrito.reduce((acc, prod) => acc + prod.precio, 0);
+  document.getElementById("total").textContent = total;
 }
 
-document.getElementById('vaciar-carrito').addEventListener('click', () => {
-    carrito = [];
-    actualizarCarrito();
+function actualizarEstadoBotones() {
+  const botonVaciar = document.getElementById("vaciar-carrito");
+  const botonComprar = document.getElementById("comprar");
+
+  if (carrito.length > 0) {
+    botonVaciar.disabled = false;
+    botonComprar.disabled = false;
+  } else {
+    botonVaciar.disabled = true;
+    botonComprar.disabled = true;
+  }
+}
+
+document.getElementById("vaciar-carrito").addEventListener("click", () => {
+  carrito = [];
+  actualizarCarrito();
 });
 
-document.getElementById('comprar').addEventListener('click', () => {
-    alert('Gracias por su compra!');
-    carrito = [];
-    actualizarCarrito();
+document.getElementById("comprar").addEventListener("click", () => {
+  alert("Gracias por su compra!");
+  carrito = [];
+  actualizarCarrito();
 });
