@@ -74,9 +74,24 @@ function actualizarCarrito() {
     mensajeVacio.textContent = "No hay productos en el carrito";
     listaCarrito.appendChild(mensajeVacio);
   } else {
-    carrito.forEach((producto) => {
+    carrito.forEach((producto, index) => {
       const liProducto = document.createElement("li");
-      liProducto.textContent = `${producto.nombre} - $${producto.precio}`;
+      liProducto.classList.add(
+        "d-flex",
+        "justify-content-between",
+        "align-items-center"
+      );
+
+      const spanProducto = document.createElement("span");
+      spanProducto.textContent = `${producto.nombre} - $${producto.precio}`;
+      liProducto.appendChild(spanProducto);
+
+      const botonEliminar = document.createElement("button");
+      botonEliminar.textContent = "X";
+      botonEliminar.classList.add("btn", "btn-danger", "btn-sm", "ml-2");
+      botonEliminar.addEventListener("click", () => eliminarDelCarrito(index));
+      liProducto.appendChild(botonEliminar);
+
       listaCarrito.appendChild(liProducto);
     });
   }
@@ -85,6 +100,11 @@ function actualizarCarrito() {
 
   calcularTotal();
   actualizarEstadoBotones();
+}
+
+function eliminarDelCarrito(index) {
+  carrito.splice(index, 1);
+  actualizarCarrito();
 }
 
 function calcularTotal() {
@@ -120,12 +140,11 @@ document.getElementById("vaciar-carrito").addEventListener("click", () => {
 
 document.getElementById("comprar").addEventListener("click", () => {
   Swal.fire({
-    title: 'Compra realizada',
-    text: '¡Gracias por su compra!',
-    icon: 'success',
-    confirmButtonText: 'Aceptar'
+    title: "Compra realizada",
+    text: "¡Gracias por su compra!",
+    icon: "success",
+    confirmButtonText: "Aceptar",
   });
   carrito = [];
   actualizarCarrito();
 });
-
