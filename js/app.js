@@ -78,8 +78,8 @@ function actualizarCarrito() {
       const liProducto = document.createElement("li");
       liProducto.classList.add(
         "d-flex",
-        "justify-content-between",
-        "align-items-center"
+        "align-items-center",
+        "justify-content-center"
       );
 
       const spanProducto = document.createElement("span");
@@ -88,7 +88,13 @@ function actualizarCarrito() {
 
       const botonEliminar = document.createElement("button");
       botonEliminar.textContent = "X";
-      botonEliminar.classList.add("btn", "btn-danger", "btn-sm", "ml-2");
+      botonEliminar.classList.add(
+        "btn",
+        "btn-danger",
+        "btn-sm",
+        "ml-2",
+        "equis"
+      );
       botonEliminar.addEventListener("click", () => eliminarDelCarrito(index));
       liProducto.appendChild(botonEliminar);
 
@@ -109,7 +115,7 @@ function eliminarDelCarrito(index) {
 
 function calcularTotal() {
   total = carrito.reduce((acc, prod) => acc + prod.precio, 0);
-  document.getElementById("total").textContent = total;
+  document.getElementById("total").textContent = `$${total}`;
 }
 
 function actualizarEstadoBotones() {

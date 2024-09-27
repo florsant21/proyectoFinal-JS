@@ -14,7 +14,6 @@
   }
 }
 
-
 .portada {
   width: 100%;
   margin-top: 66px;
@@ -48,14 +47,14 @@ footer {
     border: 1px solid;
   }
   & button:hover {
-  background-color: #eb8deb;
-  color: rgb(255, 255, 255);
-  border: 5px;
-  padding: 10px 20px;
-  font-size: 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    background-color: #eb8deb;
+    color: rgb(255, 255, 255);
+    border: 5px;
+    padding: 10px 20px;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
 }
 
@@ -69,6 +68,43 @@ footer {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+#vaciar-carrito:disabled {
+  display: none;
+}
 
+#vaciar-carrito {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 7px 7px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 10px;
+}
 
+#vaciar-carrito:hover:enabled {
+  background-color: #d00; /* Un rojo más oscuro cuando se hace hover */
+}
 
+#comprar:disabled {
+  display: none;
+}
+
+#comprar:enabled {
+  border-radius: 5px;
+  background-color: rgb(255, 174, 255);
+  padding: 3px;
+}
+
+#comprar:hover:enabled {
+  background-color: rgb(248, 124, 221);
+  border-radius: 5px;
+  color: whitesmoke;
+}
+
+.equis {
+  margin-left: 10px;
+  padding: 3px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
