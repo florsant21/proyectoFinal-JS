@@ -14,6 +14,7 @@
   }
 }
 
+
 .portada {
   width: 100%;
   margin-top: 66px;
@@ -39,3 +40,35 @@ footer {
     color: white;
   }
 }
+
+#productos {
+  & button {
+    font-size: 13px;
+    background-color: rgb(255, 174, 255);
+    border: 1px solid;
+  }
+  & button:hover {
+  background-color: #eb8deb;
+  color: rgb(255, 255, 255);
+  border: 5px;
+  padding: 10px 20px;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  }
+}
+
+.card {
+  border: 1px solid #ddd;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
